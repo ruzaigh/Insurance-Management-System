@@ -1,0 +1,80 @@
+
+<div class="heading-wrapper">
+  <h2 mat-dialog-title>{{ data.mode === 'edit' ? 'Edit Customer' : 'Create Customer' }}</h2>
+  <button mat-raised-button class="close-button" (click)="onCancel()">
+    X
+  </button>
+</div>
+
+<mat-dialog-content>
+
+  <form [formGroup]="customerForm">
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="id" readonly>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName">
+        <mat-error *ngIf="customerForm.get('firstName')?.hasError('required')">
+          First name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName">
+        <mat-error *ngIf="customerForm.get('lastName')?.hasError('required')">
+          Last name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phone">
+        <mat-error *ngIf="customerForm.get('phone')?.hasError('pattern')">
+          Please enter a valid phone number
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="active">Active</mat-option>
+          <mat-option value="inactive">Inactive</mat-option>
+          <mat-option value="pending">Pending</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Add more form fields as needed -->
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <div class="example-button-row">
+    <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
+    <button
+      mat-raised-button color="primary"
+      (click)="onSubmit()"
+    >
+      Save
+    </button>
+  </div>
+
+</mat-dialog-actions>

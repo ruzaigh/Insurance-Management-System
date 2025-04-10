@@ -1,0 +1,123 @@
+{
+  "customers": [
+    {
+      "id": "c001",
+      "firstName": "John",
+      "lastName": "Smith",
+      "email": "john.smith@example.com",
+      "phone": "+27-555-123-4567",
+      "dateOfBirth": "1985-06-15",
+      "addresses": [
+        {
+          "id": "a001",
+          "street": "123 Main St",
+          "city": "Boston",
+          "state": "MA",
+          "postalCode": "02108",
+          "country": "USA",
+          "isPrimary": true
+        },
+        {
+          "id": "a002",
+          "street": "45 Commerce Way",
+          "city": "Burlington",
+          "state": "MA",
+          "postalCode": "01803",
+          "country": "USA",
+          "isPrimary": false
+        }
+      ],
+      "createdDate": "2024-01-10T14:30:00"
+    },
+    {
+      "id": "c002",
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "email": "sarah.johnson@example.com",
+      "phone": "+27-555-987-6543",
+      "dateOfBirth": "1990-02-28",
+      "addresses": [
+        {
+          "id": "a003",
+          "street": "789 Oak Avenue",
+          "city": "New York",
+          "state": "NY",
+          "postalCode": "10001",
+          "country": "USA",
+          "isPrimary": true
+        }
+      ],
+      "createdDate": "2024-02-15T09:45:00"
+    },
+    {
+      "id": "c003",
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "email": "michael.brown@example.com",
+      "phone": "+27-555-456-7890",
+      "dateOfBirth": "1978-11-03",
+      "addresses": [
+        {
+          "id": "a004",
+          "street": "567 Pine Street",
+          "city": "San Francisco",
+          "state": "CA",
+          "postalCode": "94107",
+          "country": "USA",
+          "isPrimary": true
+        },
+        {
+          "id": "a005",
+          "street": "890 Beach Blvd",
+          "city": "San Diego",
+          "state": "CA",
+          "postalCode": "92101",
+          "country": "USA",
+          "isPrimary": false
+        }
+      ],
+      "createdDate": "2024-03-01T11:15:00"
+    },
+    {
+      "id": "c004",
+      "firstName": "Emily",
+      "lastName": "Davis",
+      "email": "emily.davis@example.com",
+      "phone": "+27-555-234-5678",
+      "dateOfBirth": "1992-07-22",
+      "addresses": [
+        {
+          "id": "a006",
+          "street": "432 Maple Drive",
+          "city": "Chicago",
+          "state": "IL",
+          "postalCode": "60601",
+          "country": "USA",
+          "isPrimary": true
+        }
+      ],
+      "createdDate": "2024-03-12T16:20:00"
+    },
+    {
+      "id": "c005",
+      "firstName": "Robert",
+      "lastName": "Wilson",
+      "email": "robert.wilson@example.com",
+      "phone": "+27-555-876-5432",
+      "dateOfBirth": "1983-04-19",
+      "addresses": [
+        {
+          "id": "a007",
+          "street": "321 Elm Street",
+          "city": "Austin",
+          "state": "TX",
+          "postalCode": "78701",
+          "country": "USA",
+          "isPrimary": true
+        }
+      ],
+      "createdDate": "2024-03-25T13:40:00"
+    }
+  ]
+}
+
