@@ -12,23 +12,19 @@ export const initialCustomerState: CustomerState = {
 export const customerReducer = createReducer(
   initialCustomerState,
 
-  on(CustomerActions.loadCustomers, (state) => ({
-    ...state,
-    loading: true,
-    error: null,
-  })),
-
   on(CustomerActions.loadCustomersSuccess, (state, { customers }) => ({
     ...state,
     customers,
-    loading: false,
   })),
 
   on(CustomerActions.addCustomerSuccess, (state, { customer }) => ({
-    ...state,
-    customers: [...state.customers, customer],
+    customers: [customer, ...state.customers],
   })),
 
+  on(CustomerActions.deleteCustomerSuccess, (state, { id }) => ({
+    ...state,
+    customers: state.customers.filter((c) => c.id !== id),
+  })),
   on(CustomerActions.updateCustomerSuccess, (state, { customer }) => ({
     ...state,
     customers: state.customers.map((c) =>

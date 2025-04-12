@@ -1,3 +1,11 @@
+.button-container{
+  display: flex;
+  width: 100%;
+  justify-content: right;
+  button{
+    margin-bottom: 32px;
+  }
+}
 table {
   width: 100%;
 

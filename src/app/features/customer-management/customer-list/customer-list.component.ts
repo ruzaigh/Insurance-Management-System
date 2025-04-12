@@ -80,7 +80,6 @@ export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscription.add(
       this.actions$.pipe(ofType(loadCustomersFailure)).subscribe(() => {
         this.isLoading = false;
-        // Optionally handle error state here
       })
     );
   }
@@ -96,15 +95,10 @@ export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    const dialogRef = this.dialog.open(CustomerDetailComponent, {
+    this.dialog.open(CustomerDetailComponent, {
       width: '600px',
+      height: '80vh',
       data: { customer: row, mode: 'edit' },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.store.dispatch(loadCustomers());
-      }
     });
   }
 
@@ -128,6 +122,14 @@ export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       await this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  addCustomer() {
+    this.dialog.open(CustomerDetailComponent, {
+      width: '600px',
+      height: '80vh',
+      data: { mode: 'create' },
+    });
   }
 
   ngOnDestroy() {

@@ -14,6 +14,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [CustomerListComponent, CustomerDetailComponent],
@@ -32,6 +35,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatNativeDateModule,
     MatIconModule,
     MatButtonModule,
+    MatCardModule,
+    MatDividerModule,
+    MatCheckboxModule,
   ],
 })
 export class CustomerManagementModule {}

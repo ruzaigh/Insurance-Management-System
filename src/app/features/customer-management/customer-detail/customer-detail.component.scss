@@ -15,3 +15,141 @@
     margin-bottom: 32px;
   }
 }
+
+.section-header {
+  margin-bottom: 16px;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #3f51b5;
+  }
+
+  .header-with-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .expansion-actions {
+      display: flex;
+      gap: 8px;
+
+      button {
+        line-height: 28px;
+        padding: 0 8px;
+
+        mat-icon {
+          font-size: 18px;
+          height: 18px;
+          width: 18px;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+}
+
+.addresses-header {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  mat-form-field {
+    flex: 1;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.example-button-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* Address section styles */
+.address-container {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+}
+
+.address-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .address-title {
+    h4 {
+      margin: 0 0 4px 0;
+      font-weight: 500;
+    }
+
+    .address-summary {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.6);
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .address-actions {
+    display: flex;
+    align-items: center;
+
+    mat-checkbox {
+      margin-right: 8px;
+    }
+
+    .toggle-button {
+      margin-right: 4px;
+    }
+  }
+}
+
+.address-form {
+  padding-left: 8px;
+}
+
+.add-address-container {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    padding: 4px 16px;
+  }
+}
+
+mat-divider {
+  margin: 24px 0;
+}
+
+mat-dialog-content {
+  max-height: none !important;
+  padding-bottom: 16px;
+}

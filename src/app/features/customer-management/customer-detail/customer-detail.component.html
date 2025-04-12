@@ -1,14 +1,19 @@
-
 <div class="heading-wrapper">
   <h2 mat-dialog-title>{{ data.mode === 'edit' ? 'Edit Customer' : 'Create Customer' }}</h2>
-  <button mat-raised-button class="close-button" (click)="onCancel()">
+  <button mat-raised-button class="close-button" [mat-dialog-close]="false">
     X
   </button>
 </div>
 
 <mat-dialog-content>
-
   <form [formGroup]="customerForm">
+    <ng-container *ngIf="data.mode === 'edit'">
+          <div class="section-header">
+            <h3>{{data.customer.firstName}} {{data.customer.lastName}} Information</h3>
+          </div>
+    </ng-container>
+
+
     <div class="form-row">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>ID</mat-label>
@@ -36,45 +41,140 @@
 
     <div class="form-row">
       <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-error *ngIf="customerForm.get('email')?.hasError('email')">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
         <mat-label>Phone Number</mat-label>
         <input matInput formControlName="phone">
         <mat-error *ngIf="customerForm.get('phone')?.hasError('pattern')">
           Please enter a valid phone number
         </mat-error>
       </mat-form-field>
+    </div>
 
+    <div class="form-row">
       <mat-form-field appearance="outline">
         <mat-label>Date of Birth</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+
     </div>
 
-    <div class="form-row">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Status</mat-label>
-        <mat-select formControlName="status">
-          <mat-option value="active">Active</mat-option>
-          <mat-option value="inactive">Inactive</mat-option>
-          <mat-option value="pending">Pending</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="section-header addresses-header">
+      <div class="header-with-actions">
+        <h3>Addresses</h3>
+        <div class="expansion-actions" *ngIf="addressesFormArray.length > 1">
+          <button mat-button color="primary" type="button" (click)="expandAllAddresses()">
+            <mat-icon>unfold_more</mat-icon> Expand All
+          </button>
+          <button mat-button color="primary" type="button" (click)="collapseAllAddresses()">
+            <mat-icon>unfold_less</mat-icon> Collapse All
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Add more form fields as needed -->
+    <div formArrayName="addresses">
+      <!-- Existing Addresses -->
+      <div *ngFor="let addressControl of addressesFormArray.controls; let i = index" [formGroupName]="i" class="address-container">
+        <div class="address-header">
+          <div class="address-title">
+            <h4>Address #{{i+1}}</h4>
+            <div class="address-summary" *ngIf="!expandedAddresses[i]">
+              {{ getAddressControl(i, 'street')?.value }},
+              {{ getAddressControl(i, 'city')?.value }},
+              {{ getAddressControl(i, 'state')?.value }}
+            </div>
+          </div>
+          <div class="address-actions">
+            <mat-checkbox formControlName="isPrimary" color="primary" (change)="onPrimaryChange(i)">Primary</mat-checkbox>
+            <button mat-icon-button [color]="expandedAddresses[i] ? 'primary' : 'accent'" (click)="toggleAddressExpansion(i)" type="button" aria-label="Toggle address" class="toggle-button">
+              <mat-icon>{{ expandedAddresses[i] ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteAddress(i)" type="button" aria-label="Delete address">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="address-form" *ngIf="expandedAddresses[i]">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Street</mat-label>
+              <input matInput formControlName="street" placeholder="123 Main St">
+              <mat-error *ngIf="getAddressControl(i, 'street')?.hasError('required')">
+                Street is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" placeholder="City" >
+              <mat-error *ngIf="getAddressControl(i, 'city')?.hasError('required')">
+                City is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>State/Province</mat-label>
+              <input matInput formControlName="state" placeholder="State">
+              <mat-error *ngIf="getAddressControl(i, 'state')?.hasError('required')">
+                State is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Postal Code</mat-label>
+              <input matInput formControlName="postalCode" placeholder="Postal Code">
+              <mat-error *ngIf="getAddressControl(i, 'postalCode')?.hasError('required')">
+                Postal code is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Country</mat-label>
+              <input matInput formControlName="country" placeholder="Country">
+              <mat-error *ngIf="getAddressControl(i, 'country')?.hasError('required')">
+                Country is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-address-container">
+        <button mat-stroked-button color="primary" (click)="addNewAddress()" type="button">
+          <mat-icon>add</mat-icon> Add New Address
+        </button>
+      </div>
+    </div>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <div class="example-button-row">
-    <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
+    <ng-container *ngIf="data.mode === 'edit'">
+      <button mat-raised-button color="warn" (click)="onDelete()" type="button">Delete user</button>
+
+    </ng-container>
     <button
       mat-raised-button color="primary"
       (click)="onSubmit()"
+      type="button"
     >
-      Save
+      {{ data.mode === 'edit' ? 'Save customer' : 'Add Customer' }}
+
     </button>
   </div>
-
 </mat-dialog-actions>

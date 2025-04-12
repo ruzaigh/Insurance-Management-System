@@ -20,6 +20,11 @@ export const addCustomerSuccess = createAction(
   props<{ customer: Customer }>()
 );
 
+export const addCustomerFailure = createAction(
+  '[Customer] Add Customer Failure',
+  props<{ error: any }>()
+);
+
 export const updateCustomer = createAction(
   '[Customer] Update Customer',
   props<{ customer: Customer }>()
@@ -41,4 +46,8 @@ export const deleteCustomer = createAction(
 export const deleteCustomerSuccess = createAction(
   '[Customer] Delete Customer Success',
   props<{ id: string }>()
+);
+export const deleteCustomerFailure = createAction(
+  '[Customer] Delete Customer Failure',
+  props<{ error: any }>()
 );

@@ -1,5 +1,15 @@
-<div class="mat-elevation-z8">
+<div class="button-container">
+  <button
+    mat-raised-button color="primary"
+    (click)="addCustomer()"
+    type="button"
+  >
+    Add customer
+  </button>
+</div>
 
+
+<div class="mat-elevation-z8">
 
   <table mat-table [dataSource]="isLoading ? skeletonData : customerListDataSource" matSort (matSortChange)="announceSortChange($event)">
 
@@ -28,7 +38,6 @@
     ></tr>
   </table>
 
-  <!-- No Data Message -->
   <div class="no-data-container" *ngIf="!isLoading && customerListDataSource.data.length === 0">
     <span>No customers found</span>
   </div>
