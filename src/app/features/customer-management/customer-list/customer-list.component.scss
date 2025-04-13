@@ -1,7 +1,7 @@
-.button-container{
+.container{
   display: flex;
   width: 100%;
-  justify-content: right;
+  justify-content: space-between;
   button{
     margin-bottom: 32px;
   }

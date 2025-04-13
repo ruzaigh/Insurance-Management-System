@@ -1,0 +1,24 @@
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+::ng-deep .mat-form-field-suffix {
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .spinner-container .mat-progress-spinner circle {
+  stroke: #3f51b5;
+}

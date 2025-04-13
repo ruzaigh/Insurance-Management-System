@@ -1,1 +1,25 @@
-<p>search works!</p>
+<div class="search-container">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>{{ placeholder }}</mat-label>
+    <input matInput [formControl]="searchControl" />
+
+    <span matSuffix class="suffix-container">
+      <mat-spinner *ngIf="isLoading" [diameter]="20" class="search-spinner">
+      </mat-spinner>
+
+      <mat-icon *ngIf="!isLoading && !searchControl.value" class="search-icon">
+        search
+      </mat-icon>
+
+      <button
+        *ngIf="searchControl.value && !isLoading"
+        mat-icon-button
+        class="clear-button"
+        aria-label="Clear"
+        (click)="clearSearch()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </span>
+  </mat-form-field>
+</div>

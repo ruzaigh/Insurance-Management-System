@@ -17,27 +17,29 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SharedModule } from "../../shared/shared.module";
 
 @NgModule({
   declarations: [CustomerListComponent, CustomerDetailComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CustomerManagementRoutingModule,
-    MatDialogModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    MatTableModule,
-    MatSortModule,
-    MatProgressSpinnerModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDividerModule,
-    MatCheckboxModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CustomerManagementRoutingModule,
+        MatDialogModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatTableModule,
+        MatSortModule,
+        MatProgressSpinnerModule,
+        MatNativeDateModule,
+        MatIconModule,
+        MatButtonModule,
+        MatCardModule,
+        MatDividerModule,
+        MatCheckboxModule,
+        SharedModule,
+    ],
 })
 export class CustomerManagementModule {}

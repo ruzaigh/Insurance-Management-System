@@ -5,9 +5,21 @@ import { SearchComponent } from './components/search/search.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [ConfirmDialogComponent, SearchComponent],
-  imports: [CommonModule, MatIconModule, MatDialogModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatInputModule,
+  ],
+  exports: [SearchComponent],
 })
 export class SharedModule {}
