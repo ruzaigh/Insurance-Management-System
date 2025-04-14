@@ -1,0 +1,69 @@
+.heading-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .close-button {
+    min-width: 36px;
+    width: 36px;
+    padding: 0;
+    line-height: 36px;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  mat-form-field {
+    flex: 1;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.example-button-row {
+  display: flex;
+  gap: 8px;
+}
+
+::ng-deep .mat-option-text {
+  display: flex;
+  align-items: center;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-pending {
+  background-color: #ffd600;
+}
+
+.status-approved {
+  background-color: #43a047;
+}
+
+.status-rejected {
+  background-color: #e53935;
+}
+
+

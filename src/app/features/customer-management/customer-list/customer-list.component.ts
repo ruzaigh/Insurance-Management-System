@@ -8,6 +8,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import {
+  deleteCustomer,
   loadCustomers,
   loadCustomersFailure,
 } from '../../../shared/store/actions/customer.actions';
@@ -20,6 +21,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerDetailComponent } from '../customer-detail/customer-detail.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-customer-list',
@@ -30,6 +32,7 @@ export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
   columnConfig: Array<{
     id: string;
     label: string;
+    sortable?: boolean;
   }> = [
     { id: 'id', label: 'Id' },
     { id: 'firstName', label: 'First Name' },
@@ -37,6 +40,7 @@ export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
     { id: 'phone', label: 'Phone Number' },
     { id: 'dateOfBirth', label: 'Date of birth' },
     { id: 'addresses', label: 'Address' },
+    { id: 'actions', label: 'Actions', sortable: false },
   ];
 
   displayedColumns: string[] = this.columnConfig.map((column) => column.id);
@@ -84,8 +88,8 @@ export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  viewUser(row: Customer) {
-    if (!row || !row.id) {
+  viewUser(customer: Customer) {
+    if (!customer || !customer.id) {
       this.snackBar.open('Customer information is not available', 'Close', {
         duration: 3000,
         horizontalPosition: 'end',
@@ -98,7 +102,31 @@ export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dialog.open(CustomerDetailComponent, {
       width: '600px',
       height: '80vh',
-      data: { customer: row, mode: 'edit' },
+      data: { customer: customer, mode: 'edit' },
+    });
+  }
+  deleteCustomer(customer: Customer) {
+    const dialog = this.dialog.open(ConfirmDialogComponent, {
+      width: '600px',
+      data: {
+        heading: 'Warning',
+        message: `Are you sure you want to delete ${customer.firstName} ${customer.lastName}? This action cannot be undone.`,
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
+      },
+    });
+
+    dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        // User confirmed deletion
+        this.store.dispatch(deleteCustomer({ id: customer.id }));
+        this.snackBar.open('Customer successfully deleted', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+          panelClass: ['success-snackbar'],
+        });
+      }
     });
   }
 

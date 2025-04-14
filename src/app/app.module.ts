@@ -17,6 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { CustomerManagementModule } from './features/customer-management/customer-management.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from './shared/shared.module';
+import { QuoteManagementModule } from './features/quote-management/quote-management.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,8 +42,10 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     AppRoutingModule,
     CustomerManagementModule,
+    QuoteManagementModule,
     MatSnackBarModule,
     SharedModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

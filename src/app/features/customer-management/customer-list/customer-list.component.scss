@@ -1,86 +1,125 @@
-.container{
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  button{
-    margin-bottom: 32px;
-  }
-}
-table {
-  width: 100%;
+.customers-container{
+  padding: 24px;
+  .quotes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
 
-  .mat-header-row {
-    .mat-header-cell {
-      padding-right: 0;
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 500;
     }
   }
 
-  .mat-row {
-    cursor: pointer;
-    .mat-cell:last-child {
-      padding-right: 0;
+  .filter-container {
+    margin-bottom: 16px;
+    max-width: 500px;
+  }
+  table {
+    width: 100%;
+
+    .mat-header-row {
+      .mat-header-cell {
+        padding-right: 0;
+      }
+    }
+
+    .mat-row {
+      &:hover{
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      .mat-cell:last-child {
+        padding-right: 0;
+      }
+    }
+    skeleton-cell {
+      position: relative;
+      padding: 8px 24px !important;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .skeleton-loading {
+      height: 16px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      background-color: #e2e2e2;
+      border-radius: 4px;
+    }
+    .mat-column-id .skeleton-loading {
+      width: 40%;
+    }
+    .mat-column-firstName.skeleton-loading,
+    .mat-column-lastName .skeleton-loading {
+      width: 60%;
+    }
+
+    .mat-column-phone .skeleton-loading {
+      width: 70%;
+    }
+
+    .mat-column-dateOfBirth .skeleton-loading {
+      width: 50%;
+    }
+
+    .mat-column-addresses .skeleton-loading {
+      width: 90%;
+    }
+
+    .skeleton-loading::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.6) 50%,
+          rgba(255, 255, 255, 0) 100%
+      );
+      animation: shimmer 1.5s infinite;
+    }
+
+    .skeleton-row {
+      pointer-events: none;
+    }
+
+    .skeleton-loading {
+      animation: pulse 1.5s ease-in-out infinite alternate;
     }
   }
-  skeleton-cell {
-    position: relative;
-    padding: 8px 24px !important;
-    vertical-align: middle;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  }
 
-  .skeleton-loading {
-    height: 16px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    background-color: #e2e2e2;
-    border-radius: 4px;
-  }
-  .mat-column-id .skeleton-loading {
-    width: 40%;
-  }
-  .mat-column-firstName.skeleton-loading,
-  .mat-column-lastName .skeleton-loading {
-    width: 60%;
-  }
+  .no-data-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.54);
+    padding: 48px 0;
+    mat-icon {
+      font-size: 36px;
+      height: 36px;
+      width: 36px;
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
 
-  .mat-column-phone .skeleton-loading {
-    width: 70%;
-  }
+    span {
+      font-size: 14px;
+    }
 
-  .mat-column-dateOfBirth .skeleton-loading {
-    width: 50%;
-  }
-
-  .mat-column-addresses .skeleton-loading {
-    width: 90%;
-  }
-
-  .skeleton-loading::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.6) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    animation: shimmer 1.5s infinite;
-  }
-
-  .skeleton-row {
-    pointer-events: none;
-  }
-
-  .skeleton-loading {
-    animation: pulse 1.5s ease-in-out infinite alternate;
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.04);
+    }
   }
 }
+
 
 @keyframes shimmer {
   100% {
@@ -97,11 +136,4 @@ table {
   }
 }
 
-.no-data-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  font-style: italic;
-  color: rgba(0, 0, 0, 0.54);
-}
+

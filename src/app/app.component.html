@@ -2,10 +2,14 @@
   <mat-toolbar color="primary" class="app-toolbar">
     <span>Insurance Management System</span>
     <div class="spacer"></div>
-    <nav>
-      <a mat-button routerLink="/customers" routerLinkActive="active">Customers</a>
-      <a mat-button routerLink="/quotes" routerLinkActive="active">Quotes</a>
-    </nav>
+    <div class="tab-wrapper">
+      <button mat-flat-button color="primary" routerLink="/customers" >
+        Customers
+      </button>
+      <button mat-flat-button color="primary" routerLink="/quotes">
+        Quotes
+      </button>
+    </div>
   </mat-toolbar>
 
   <div class="content-container">

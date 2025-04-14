@@ -1,0 +1,131 @@
+.quotes-container {
+  padding: 24px;
+
+  .quotes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
+
+  .filter-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    align-items: baseline;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .mat-row {
+    cursor: pointer;
+
+    &:hover:not(.skeleton-row) {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+
+  .no-data-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 0;
+    color: rgba(0, 0, 0, 0.54);
+    background-color: white;
+
+    mat-icon {
+      font-size: 36px;
+      height: 36px;
+      width: 36px;
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
+
+    span {
+      font-size: 14px;
+    }
+  }
+
+  .status-indicator {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .status-approved {
+    background-color: #e6f4ea;
+    color: #137333;
+  }
+
+  .status-rejected {
+    background-color: #f4e6e6;
+    color: #731313;
+  }
+
+  .status-pending {
+    background-color: #fff8e1;
+    color: #996500;
+  }
+
+  .action-buttons {
+    white-space: nowrap;
+
+    button {
+      margin-right: 4px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+
+  .skeleton-cell {
+    position: relative;
+  }
+
+  .skeleton-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 16px;
+    margin: 16px 0;
+    background: linear-gradient(to right, #f6f6f6 8%, #f0f0f0 18%, #f6f6f6 33%);
+    background-size: 800px 104px;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite linear;
+  }
+
+  .skeleton-row {
+    pointer-events: none;
+
+    &:nth-child(odd) {
+      background-color: rgba(0, 0, 0, 0.01);
+    }
+  }
+}
+
+
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+

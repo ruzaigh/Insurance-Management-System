@@ -1,0 +1,103 @@
+<div class="quotes-container">
+  <div class="quotes-header">
+    <h1>Quote Management</h1>
+    <button mat-raised-button color="primary" (click)="addQuote()">
+      <mat-icon>add</mat-icon> Create Quote
+    </button>
+  </div>
+
+  <div class="filter-container">
+    <app-search placeholder="Search quotes..."> </app-search>
+    <mat-form-field appearance="outline" class="status-filter">
+      <mat-label>Filter by Status</mat-label>
+      <mat-select [(value)]="statusFilter" (selectionChange)="applyStatusFilter()">
+        <mat-option value="">All Statuses</mat-option>
+        <mat-option value="pending">Pending</mat-option>
+        <mat-option value="approved">Approved</mat-option>
+        <mat-option value="rejected">Rejected</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table
+      mat-table
+      [dataSource]="isLoading ? skeletonData : quoteListDataSource"
+      matSort
+      (matSortChange)="announceSortChange($event)"
+    >
+      <ng-container *ngFor="let column of columnConfig">
+        <ng-container [matColumnDef]="column.id">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [disabled]="column.sortable === false"
+          >
+            {{ column.label }}
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [class.skeleton-cell]="isLoading"
+          >
+            <div *ngIf="isLoading" class="skeleton-loading"></div>
+
+            <ng-container *ngIf="!isLoading">
+              <ng-container *ngIf="column.id === 'quoteStatus'; else notStatus">
+                <span
+                  class="status-indicator"
+                  [ngClass]="getStatusClass(element.quoteStatus)"
+                >
+                  {{ element.quoteStatus | titlecase }}
+                </span>
+              </ng-container>
+
+              <ng-template #notStatus>
+                <ng-container *ngIf="column.id === 'actions'; else normalValue">
+                  <div class="action-buttons">
+                    <button
+                      (click)="viewQuote(element)"
+                      mat-icon-button
+                      color="primary"
+                      aria-label="Edit quote"
+                    >
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button
+                      (click)="deleteQuote(element)"
+                      mat-icon-button
+                      color="warn"
+                      aria-label="Delete quote"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </ng-container>
+              </ng-template>
+
+              <ng-template #normalValue>
+                {{ formatCellContent(element, column.id) }}
+              </ng-template>
+            </ng-container>
+          </td>
+        </ng-container>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [class.skeleton-row]="isLoading"
+      ></tr>
+    </table>
+
+    <div
+      class="no-data-container"
+      *ngIf="!isLoading && quoteListDataSource.data.length === 0"
+    >
+      <mat-icon>info</mat-icon>
+      <span>No quotes found. Click "Create Quote" to create one.</span>
+    </div>
+  </div>
+</div>
