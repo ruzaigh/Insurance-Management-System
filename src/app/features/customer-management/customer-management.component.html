@@ -1,5 +1,4 @@
 <div class="customers-container">
-
   <div class="quotes-header">
     <h1>Customer Management</h1>
     <button mat-raised-button color="primary" (click)="addCustomer()">
@@ -8,9 +7,7 @@
   </div>
 
   <div class="filter-container">
-    <app-search
-      placeholder="Search customers...">
-    </app-search>
+    <app-search placeholder="Search customers..."> </app-search>
   </div>
 
   <div class="mat-elevation-z8">
@@ -22,7 +19,12 @@
     >
       <ng-container *ngFor="let column of columnConfig">
         <ng-container [matColumnDef]="column.id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="column.sortable === false">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [disabled]="column.sortable === false"
+          >
             {{ column.label }}
           </th>
           <td
@@ -33,20 +35,41 @@
             <div *ngIf="isLoading" class="skeleton-loading"></div>
             <span *ngIf="!isLoading">
               <!-- Handle actions column -->
-              <ng-container *ngIf="column.id === 'actions'; else addressesOrNormal">
+              <ng-container
+                *ngIf="column.id === 'actions'; else addressesOrNormal"
+              >
                 <div class="action-buttons">
-                  <button mat-icon-button color="primary" aria-label="Edit customer" (click)="viewUser(element)">
+                  <button
+                    mat-icon-button
+                    color="primary"
+                    aria-label="Edit customer"
+                    (click)="viewUser(element)"
+                  >
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button mat-icon-button color="warn" aria-label="Delete customer" (click)="deleteCustomer(element)">
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    aria-label="Delete customer"
+                    (click)="deleteCustomer(element)"
+                  >
                     <mat-icon>delete</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    (click)="viewCustomerQuotes(element)"
+                  >
+                    <mat-icon>description</mat-icon>
+                    <span>View Quotes</span>
                   </button>
                 </div>
               </ng-container>
 
               <!-- Handle addresses or normal values -->
               <ng-template #addressesOrNormal>
-                <ng-container *ngIf="column.id === 'addresses'; else normalValue">
+                <ng-container
+                  *ngIf="column.id === 'addresses'; else normalValue"
+                >
                   {{
                     element.addresses && element.addresses.length
                       ? getLatestAddress(element.addresses)

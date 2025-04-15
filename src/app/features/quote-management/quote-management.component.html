@@ -11,7 +11,7 @@
     <mat-form-field appearance="outline" class="status-filter">
       <mat-label>Filter by Status</mat-label>
       <mat-select [(value)]="statusFilter" (selectionChange)="applyStatusFilter()">
-        <mat-option value="">All Statuses</mat-option>
+        <mat-option value="reset">All Statuses</mat-option>
         <mat-option value="pending">Pending</mat-option>
         <mat-option value="approved">Approved</mat-option>
         <mat-option value="rejected">Rejected</mat-option>
@@ -71,6 +71,14 @@
                       aria-label="Delete quote"
                     >
                       <mat-icon>delete</mat-icon>
+                    </button>
+                    <button
+                      (click)="viewCustomer(element.customerId)"
+                      mat-icon-button
+                      color="warn"
+                      aria-label="Delete quote"
+                    >
+                      <mat-icon>view customer</mat-icon>
                     </button>
                   </div>
                 </ng-container>

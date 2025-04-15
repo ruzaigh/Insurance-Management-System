@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { QuoteListComponent } from './quote-list/quote-list.component';
 import { QuoteDetailComponent } from './quote-detail/quote-detail.component';
 import { SharedModule } from '../../shared/shared.module';
 import { QuoteManagementRoutingModule } from './quote-management-routing.module';
@@ -16,9 +15,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { QuoteManagementComponent } from './quote-management.component';
 
 @NgModule({
-  declarations: [QuoteListComponent, QuoteDetailComponent],
+  declarations: [QuoteDetailComponent, QuoteManagementComponent],
   imports: [
     CommonModule,
     FormsModule,

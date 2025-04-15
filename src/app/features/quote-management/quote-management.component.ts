@@ -4,23 +4,25 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Quote } from '../../../core/models/customer.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Quote } from '../../core/models/quote.model';
 import {
   deleteQuote,
   loadQuotes,
-} from '../../../shared/store/actions/quote.actions';
-import { selectAllQuotes } from '../../../shared/store/selectors/quote.selectors';
-import { QuoteDetailComponent } from '../quote-detail/quote-detail.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+  loadSelectedCustomerQuotes,
+} from '../../shared/store/actions/quote.actions';
+import { selectAllQuotes } from '../../shared/store/selectors/quote.selectors';
+import { QuoteDetailComponent } from './quote-detail/quote-detail.component';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-quote-list',
-  templateUrl: './quote-list.component.html',
-  styleUrls: ['./quote-list.component.scss'],
+  selector: 'app-quote-management',
+  templateUrl: './quote-management.component.html',
+  styleUrls: ['./quote-management.component.scss'],
 })
-export class QuoteListComponent implements OnInit, OnDestroy {
+export class QuoteManagementComponent implements OnInit, OnDestroy {
   public columnConfig: Array<{
     id: string;
     label: string;
@@ -42,7 +44,7 @@ export class QuoteListComponent implements OnInit, OnDestroy {
   public isLoading = true;
   public statusFilter: string = '';
   private subscription = new Subscription();
-
+  private customerQuoteId: string = '';
   skeletonData = Array(5)
     .fill({})
     .map(() => {
@@ -59,13 +61,26 @@ export class QuoteListComponent implements OnInit, OnDestroy {
     private store: Store,
     private liveAnnouncer: LiveAnnouncer,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.isLoading = true;
+    this.subscription.add(
+      this.activatedRoute.queryParams.subscribe((params) => {
+        this.customerQuoteId = params['id'];
+      })
+    );
 
-    this.store.dispatch(loadQuotes());
+    if (!this.customerQuoteId) {
+      this.store.dispatch(loadQuotes());
+    } else {
+      this.store.dispatch(
+        loadSelectedCustomerQuotes({ id: this.customerQuoteId })
+      );
+    }
 
     this.subscription.add(
       this.store.select(selectAllQuotes).subscribe((quotes) => {
@@ -85,7 +100,11 @@ export class QuoteListComponent implements OnInit, OnDestroy {
   applyStatusFilter(): void {
     this.applyFilters();
   }
-  private applyFilters(): void {
+  private async applyFilters() {
+    if (this.statusFilter === 'reset') {
+      await this.router.navigate(['/quotes']);
+      window.location.reload();
+    }
     this.quoteListDataSource.filter = this.statusFilter;
   }
   addQuote() {
@@ -173,6 +192,10 @@ export class QuoteListComponent implements OnInit, OnDestroy {
       default:
         return '';
     }
+  }
+
+  viewCustomer(customerId: string) {
+    //  navigate to the customer management section and display the customer
   }
 
   formatCellContent(element: any, columnId: string): string {

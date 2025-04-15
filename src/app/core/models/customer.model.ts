@@ -1,3 +1,5 @@
+import { Quote } from './quote.model';
+
 export interface Address {
   id: string;
   street: string;
@@ -17,16 +19,5 @@ export interface Customer {
   dateOfBirth: string;
   addresses: Address[];
   createdDate: string;
-}
-
-export interface Quote {
-  id: string;
-  customerId: string;
-  customerFullName: string;
-  quoteAmount: number;
-  quoteStatus: 'pending' | 'approved' | 'rejected';
-  createdDate: string;
-  expiryDate: string;
-  productType: string;
-  notes?: string;
+  quotes?: Quote[];
 }

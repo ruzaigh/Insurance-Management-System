@@ -7,28 +7,31 @@ import {
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { Actions, ofType } from '@ngrx/effects';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Customer } from '../../core/models/customer.model';
 import {
   deleteCustomer,
   loadCustomers,
   loadCustomersFailure,
-} from '../../../shared/store/actions/customer.actions';
-import { Customer } from '../../../core/models/customer.model';
-import { Subscription } from 'rxjs';
-import { Actions, ofType } from '@ngrx/effects';
-import { selectAllCustomers } from '../../../shared/store/selectors/customer.selectors';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
-import { CustomerDetailComponent } from '../customer-detail/customer-detail.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+} from '../../shared/store/actions/customer.actions';
+import { selectAllCustomers } from '../../shared/store/selectors/customer.selectors';
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { CustomerQuotesComponent } from './customer-quotes/customer-quotes.component';
 
 @Component({
-  selector: 'app-customer-list',
-  templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.scss'],
+  selector: 'app-customer-management',
+  templateUrl: './customer-management.component.html',
+  styleUrls: ['./customer-management.component.scss'],
 })
-export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CustomerManagementComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   columnConfig: Array<{
     id: string;
     label: string;
@@ -71,6 +74,7 @@ export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   ngOnInit(): void {
     this.isLoading = true;
+
     this.store.dispatch(loadCustomers());
     this.subscription.add(
       this.store.select(selectAllCustomers).subscribe((customers) => {
@@ -127,6 +131,13 @@ export class CustomerListComponent implements OnInit, OnDestroy, AfterViewInit {
           panelClass: ['success-snackbar'],
         });
       }
+    });
+  }
+
+  viewCustomerQuotes(customer: Customer) {
+    this.dialog.open(CustomerQuotesComponent, {
+      width: '600px',
+      data: { customer },
     });
   }
 

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { CustomerManagementRoutingModule } from './customer-management-routing.module';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -17,29 +16,37 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { SharedModule } from "../../shared/shared.module";
+import { SharedModule } from '../../shared/shared.module';
+import { CustomerManagementComponent } from './customer-management.component';
+import { CustomerQuotesComponent } from './customer-quotes/customer-quotes.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [CustomerListComponent, CustomerDetailComponent],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CustomerManagementRoutingModule,
-        MatDialogModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatSelectModule,
-        MatTableModule,
-        MatSortModule,
-        MatProgressSpinnerModule,
-        MatNativeDateModule,
-        MatIconModule,
-        MatButtonModule,
-        MatCardModule,
-        MatDividerModule,
-        MatCheckboxModule,
-        SharedModule,
-    ],
+  declarations: [
+    CustomerDetailComponent,
+    CustomerManagementComponent,
+    CustomerQuotesComponent,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CustomerManagementRoutingModule,
+    MatDialogModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatTableModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDividerModule,
+    MatCheckboxModule,
+    SharedModule,
+    MatListModule,
+  ],
 })
 export class CustomerManagementModule {}

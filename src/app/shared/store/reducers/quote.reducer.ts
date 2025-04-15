@@ -1,7 +1,7 @@
-import { Quote } from '../../../core/models/customer.model';
 import { createReducer, on } from '@ngrx/store';
 import * as QuoteActions from '../actions/quote.actions';
 import * as CustomerActions from '../actions/customer.actions';
+import { Quote } from '../../../core/models/quote.model';
 
 export interface QuoteState {
   quotes: Quote[];
@@ -55,6 +55,19 @@ export const quoteReducer = createReducer(
     return {
       ...state,
       filteredQuotes,
+    };
+  }),
+
+  on(QuoteActions.loadCustomerQuotesSuccess, (state, { quotes }) => {
+    return {
+      ...state,
+      quotes,
+    };
+  }),
+  on(QuoteActions.loadSelectedCustomerQuotesSuccess, (state, { quote }) => {
+    return {
+      ...state,
+      quotes: quote,
     };
   })
 );

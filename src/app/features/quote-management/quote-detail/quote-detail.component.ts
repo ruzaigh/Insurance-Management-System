@@ -10,7 +10,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
-import { Customer, Quote } from '../../../core/models/customer.model';
+import { Customer } from '../../../core/models/customer.model';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import {
   addQuote,
@@ -22,6 +22,7 @@ import {
   deleteQuote,
 } from '../../../shared/store/actions/quote.actions';
 import * as CustomerSelectors from '../../../shared/store/selectors/customer.selectors';
+import { Quote } from '../../../core/models/quote.model';
 
 @Component({
   selector: 'app-quote-detail',

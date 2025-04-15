@@ -1,0 +1,46 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>Quotes for {{ customer.firstName }} {{ customer.lastName }}</h2>
+    <button mat-icon-button class="close-button" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content>
+    <ng-container *ngIf="quotes$ | async as customerQuotes; else loading">
+      <ng-container *ngIf="customerQuotes.length > 0; else noQuotes">
+        <div class="quotes-list">
+          <mat-list>
+            <mat-list-item *ngFor="let quote of customerQuotes" (click)="viewQuote(quote)" class="quote-item">
+              <div class="quote-info">
+                <div class="quote-id">ID: {{ quote.id }}</div>
+                <div class="quote-product">{{ quote.productType }}</div>
+                <div class="quote-status">
+              <span class="status-indicator" [ngClass]="getStatusClass(quote.quoteStatus)">
+                {{ quote.quoteStatus | titlecase }}
+              </span>
+                </div>
+              </div>
+              <mat-icon class="arrow-icon">chevron_right</mat-icon>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </ng-container>
+
+      <ng-template #noQuotes>
+        <div class="empty-state">
+          <mat-icon class="empty-icon">description</mat-icon>
+          <p>No quotes found for this customer.</p>
+        </div>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading quotes...</p>
+      </div>
+    </ng-template>
+
+  </mat-dialog-content>
+</div>

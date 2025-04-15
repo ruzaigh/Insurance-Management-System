@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Quote } from '../../../core/models/customer.model';
+import { Quote } from '../../../core/models/quote.model';
 
 export const loadQuotes = createAction('[Quote] Load Quotes');
 export const loadQuotesSuccess = createAction(
@@ -48,5 +48,35 @@ export const deleteQuoteSuccess = createAction(
 
 export const deleteQuoteFailure = createAction(
   '[Quote] Delete Quote Failure',
+  props<{ error: any }>()
+);
+
+export const loadCustomerQuotes = createAction(
+  '[Quote] Load Customer Quotes',
+  props<{ customerId: string }>()
+);
+
+export const loadCustomerQuotesSuccess = createAction(
+  '[Quote] Load Customer Quotes Success',
+  props<{ quotes: Quote[] }>()
+);
+
+export const loadCustomerQuotesFailure = createAction(
+  '[Quote] Load Customer Quotes Failure',
+  props<{ error: any }>()
+);
+
+export const loadSelectedCustomerQuotes = createAction(
+  '[Quote] Load Selected Customer Quotes',
+  props<{ id: string }>()
+);
+
+export const loadSelectedCustomerQuotesSuccess = createAction(
+  '[Quote] Load Selected Customer Quotes Success',
+  props<{ quote: Quote[] }>()
+);
+
+export const loadSelectedCustomerQuotesFailure = createAction(
+  '[Quote] Load Selected Customer Quotes Failure',
   props<{ error: any }>()
 );

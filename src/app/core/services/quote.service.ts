@@ -1,7 +1,7 @@
-import { Quote } from '../models/customer.model';
 import { delay, map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Quote } from '../models/quote.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +34,16 @@ export class QuoteService {
 
   deleteQuote(id: string): Observable<string> {
     return of(id);
+  }
+
+  getQuotesByCustomerId(customerId: string): Observable<Quote[]> {
+    return this.getQuotes().pipe(
+      map((quotes) => quotes.filter((quote) => quote.customerId === customerId))
+    );
+  }
+  getSelectedQuotesById(id: string): Observable<Quote[]> {
+    return this.getQuotes().pipe(
+      map((quotes) => quotes.filter((quote) => quote.id === id))
+    );
   }
 }
