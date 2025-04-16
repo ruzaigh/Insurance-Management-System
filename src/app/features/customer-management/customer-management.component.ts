@@ -18,11 +18,13 @@ import {
   deleteCustomer,
   loadCustomers,
   loadCustomersFailure,
+  selectedCustomer,
 } from '../../shared/store/actions/customer.actions';
 import { selectAllCustomers } from '../../shared/store/selectors/customer.selectors';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { CustomerQuotesComponent } from './customer-quotes/customer-quotes.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-customer-management',
@@ -59,6 +61,7 @@ export class CustomerManagementComponent
       });
       return emptyCustomer;
     });
+  private customerId: string = '';
   private subscription: Subscription = new Subscription();
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -67,7 +70,8 @@ export class CustomerManagementComponent
     private actions$: Actions,
     private _liveAnnouncer: LiveAnnouncer,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute
   ) {}
   ngAfterViewInit() {
     this.customerListDataSource.sort = this.sort;
@@ -75,7 +79,17 @@ export class CustomerManagementComponent
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.store.dispatch(loadCustomers());
+    this.subscription.add(
+      this.activatedRoute.queryParams.subscribe((params) => {
+        this.customerId = params['id'];
+      })
+    );
+
+    if (!this.customerId) {
+      this.store.dispatch(loadCustomers());
+    } else {
+      this.store.dispatch(selectedCustomer({ id: this.customerId }));
+    }
     this.subscription.add(
       this.store.select(selectAllCustomers).subscribe((customers) => {
         this.customerListDataSource.data = customers;

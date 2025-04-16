@@ -194,8 +194,10 @@ export class QuoteManagementComponent implements OnInit, OnDestroy {
     }
   }
 
-  viewCustomer(customerId: string) {
-    //  navigate to the customer management section and display the customer
+  async navigateToCustomer(customerId: string) {
+    await this.router.navigate(['/customers'], {
+      queryParams: { id: customerId },
+    });
   }
 
   formatCellContent(element: any, columnId: string): string {

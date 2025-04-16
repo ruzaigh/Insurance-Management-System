@@ -30,7 +30,7 @@ export const customerReducer = createReducer(
   on(CustomerActions.updateCustomerSuccess, (state, { customer }) => ({
     ...state,
     customers: state.customers.map((c) =>
-      c.id === customer.id ? customer : c,
+      c.id === customer.id ? customer : c
     ),
   })),
   on(CustomerActions.searchCustomersSuccess, (state, { searchTerm }) => {
@@ -48,7 +48,7 @@ export const customerReducer = createReducer(
     const filteredCustomers = state.customers.filter(
       (customer) =>
         customer.firstName.toLowerCase().includes(term) ||
-        customer.lastName.toLowerCase().includes(term),
+        customer.lastName.toLowerCase().includes(term)
     );
 
     return {
@@ -56,4 +56,10 @@ export const customerReducer = createReducer(
       filteredCustomers,
     };
   }),
+  on(CustomerActions.selectedCustomerSuccess, (state, { customer }) => {
+    return {
+      ...state,
+      customers: customer,
+    };
+  })
 );

@@ -34,4 +34,10 @@ export class CustomerService {
   deleteCustomer(id: string): Observable<string> {
     return of(id);
   }
+
+  getSelectedQuotesById(id: string): Observable<Customer[]> {
+    return this.getCustomers().pipe(
+      map((customers) => customers.filter((customer) => customer.id === id))
+    );
+  }
 }

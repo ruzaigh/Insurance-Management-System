@@ -73,12 +73,11 @@
                       <mat-icon>delete</mat-icon>
                     </button>
                     <button
-                      (click)="viewCustomer(element.customerId)"
+                      (click)="navigateToCustomer(element.customerId)"
                       mat-icon-button
-                      color="warn"
-                      aria-label="Delete quote"
                     >
-                      <mat-icon>view customer</mat-icon>
+                      <mat-icon>description</mat-icon>
+                      <span>View Customer</span>
                     </button>
                   </div>
                 </ng-container>

@@ -13,14 +13,12 @@ export class CustomerEffects {
       switchMap(() =>
         this.customerService.getCustomers().pipe(
           map((customers) =>
-            CustomerActions.loadCustomersSuccess({ customers }),
+            CustomerActions.loadCustomersSuccess({ customers })
           ),
-          catchError((error) =>
-            of(CustomerActions.loadCustomersFailure(error)),
-          ),
-        ),
-      ),
-    ),
+          catchError((error) => of(CustomerActions.loadCustomersFailure(error)))
+        )
+      )
+    )
   );
 
   updateCustomer$ = createEffect(() =>
@@ -29,14 +27,14 @@ export class CustomerEffects {
       switchMap((action: { customer: Customer }) =>
         this.customerService.updateCustomer(action.customer).pipe(
           map((customer) =>
-            CustomerActions.updateCustomerSuccess({ customer }),
+            CustomerActions.updateCustomerSuccess({ customer })
           ),
           catchError((error) =>
-            of(CustomerActions.updateCustomerFailure({ error })),
-          ),
-        ),
-      ),
-    ),
+            of(CustomerActions.updateCustomerFailure({ error }))
+          )
+        )
+      )
+    )
   );
 
   deleteCustomer$ = createEffect(() =>
@@ -46,11 +44,11 @@ export class CustomerEffects {
         this.customerService.deleteCustomer(action.id).pipe(
           map((id) => CustomerActions.deleteCustomerSuccess({ id: action.id })),
           catchError((error) =>
-            of(CustomerActions.deleteCustomerFailure({ error })),
-          ),
-        ),
-      ),
-    ),
+            of(CustomerActions.deleteCustomerFailure({ error }))
+          )
+        )
+      )
+    )
   );
 
   addCustomer$ = createEffect(() =>
@@ -59,14 +57,14 @@ export class CustomerEffects {
       switchMap((action: { customer: Customer }) =>
         this.customerService.addCustomer(action.customer).pipe(
           map((id) =>
-            CustomerActions.addCustomerSuccess({ customer: action.customer }),
+            CustomerActions.addCustomerSuccess({ customer: action.customer })
           ),
           catchError((error) =>
-            of(CustomerActions.addCustomerFailure({ error })),
-          ),
-        ),
-      ),
-    ),
+            of(CustomerActions.addCustomerFailure({ error }))
+          )
+        )
+      )
+    )
   );
 
   searchCustomers$ = createEffect(() =>
@@ -75,13 +73,29 @@ export class CustomerEffects {
       map((action) =>
         CustomerActions.searchCustomersSuccess({
           searchTerm: action.searchTerm,
-        }),
-      ),
-    ),
+        })
+      )
+    )
+  );
+
+  selectedCustomer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CustomerActions.selectedCustomer),
+      switchMap((action: { id: string }) =>
+        this.customerService.getSelectedQuotesById(action.id).pipe(
+          map((customer) =>
+            CustomerActions.selectedCustomerSuccess({ customer: customer })
+          ),
+          catchError((error) =>
+            of(CustomerActions.selectedCustomerFailure({ error }))
+          )
+        )
+      )
+    )
   );
 
   constructor(
     private actions$: Actions,
-    private customerService: CustomerService,
+    private customerService: CustomerService
   ) {}
 }
